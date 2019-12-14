@@ -1,0 +1,24 @@
+#
+# Copyright © 2019, "rupansh" <rupanshsekar@hotmail.com>
+#
+# This software is licensed under the terms of the GNU General Public
+# License version 3, as published by the Free Software Foundation, and
+# may be copied, distributed, and modified under those terms.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# Please maintain this if you use this script or any part of it
+
+[package]
+name = "rust_csgo"
+version = "0.1.0"
+authors = ["rupansh <rupanshsekar@hotmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+winapi = { version = "0.3", features = ["d3d9types", "winuser", "handleapi", "errhandlingapi", "processthreadsapi", "memoryapi", "psapi"] }
