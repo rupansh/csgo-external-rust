@@ -12,6 +12,12 @@ I had learnt rust a while ago but I hadn't used it much. I wanted to try this pr
 # Will this be updated?
 probably not, unless i find something example worthy! It was intended to be a base/PoC. If you want your own cheat, write it yourself!
 
+# offsets?
+https://github.com/frk1/hazedumper/blob/master/csgo.cs \
+- replace `public const Int32 ` with `"`
+- replace ` =` with `" =>`
+- replace `;` with `,`
+- finally update `src/offsets.rs` !
 
 # Should I try this in-game?
-#cheating4rarts. this was merely a fun experiment. Do not sabotage games!
+cheating4rarts. this was merely a fun experiment. Do not sabotage games! feel free use it in hvh
