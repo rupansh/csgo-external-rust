@@ -1,5 +1,5 @@
 /*
-Copyright © 2019, "rupansh" <rupanshsekar@hotmail.com>
+Copyright © 2020, "rupansh" <rupanshsekar@hotmail.com>
 
  This software is licensed under the terms of the GNU General Public
  License version 3, as published by the Free Software Foundation, and
@@ -15,25 +15,21 @@ Copyright © 2019, "rupansh" <rupanshsekar@hotmail.com>
 
 extern crate winapi;
 use winapi::shared::minwindef::DWORD;
+use winapi::shared::basetsd::DWORD_PTR;
 use winapi::shared::ntdef::NULL;
 
-use std::string::String;
-use std::time::Duration;
 use std::thread;
-
+use std::time::Duration;
 
 mod hack;
 use hack::*;
 use hack::proc_mem::*;
 use hack::offsets::*;
-
-const PROCESS: &[u8; 8] = b"csgo.exe";
-const DLL: &[u8; 19] = b"client_panorama.dll";
-const EDLL: &[u8; 10] = b"engine.dll";
+use hack::player_struct::*;
 
 
 fn main() {
-    let mut hack_vars: HackVars = HackVars {
+    let mut hack_vars: Game = Game {
         game_module: NULL as DWORD,
         client_state: NULL as DWORD,
         process_mem: ProcMem {
@@ -45,22 +41,26 @@ fn main() {
             b_iOn: false,
             b_prot: false,
         },
-        local_player: NULL as DWORD,
+        local_entity: 0,
+        local_player: PlayerStruct::default(),
+        max_players: None,
     };
 
     println!("Searching for game");
-    hack_vars.process_mem.process(String::from_utf8(PROCESS.to_vec()).unwrap());
+    hack_vars.process_mem.process("csgo.exe".to_string());
     println!("Searching for panorama");
-    hack_vars.game_module = hack_vars.process_mem.module(String::from_utf8(DLL.to_vec()).unwrap());
+    let game_hmod = hack_vars.process_mem.module("client_panorama.dll".to_string());
+    hack_vars.game_module = game_hmod as DWORD_PTR as u32;
     println!("Searching for engine");
-    let engine = hack_vars.process_mem.module(String::from_utf8(EDLL.to_vec()).unwrap());
-    hack_vars.process_mem.read_mem::<DWORD>(engine + OFFSETS_SIG.dwClientState, &mut hack_vars.client_state);
+    let engine = hack_vars.process_mem.module("engine.dll".to_string()) as DWORD_PTR as u32;
+    hack_vars.process_mem.read_mem::<DWORD>(engine + OFFSETS_SIG.get(&"dwClientState").cloned().unwrap(), &mut hack_vars.client_state);
+
 
     loop {
         hack_vars.bhop();
         hack_vars.wallhax();
         hack_vars.aimbot();
-        thread::sleep(Duration::from_millis(10))
+
+        thread::sleep(Duration::from_millis(5))
     }
 }
-

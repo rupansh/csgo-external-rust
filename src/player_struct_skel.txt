@@ -1,0 +1,33 @@
+/*
+Copyright © 2020, "rupansh" <rupanshsekar@hotmail.com>
+
+ This software is licensed under the terms of the GNU General Public
+ License version 3, as published by the Free Software Foundation, and
+ may be copied, distributed, and modified under those terms.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+
+ Please maintain this if you use this script or any part of it
+*/
+
+extern crate winapi;
+use winapi::shared::d3d9types::D3DVECTOR;
+
+
+#[allow(non_snake_case)]
+#[repr(C)]
+pub struct PlayerStruct {
+pls_skeleton
+}
+
+#[allow(non_snake_case)]
+impl Default for PlayerStruct {
+    fn default() -> PlayerStruct {
+    return PlayerStruct {
+default_skeleton
+        }
+    }
+}
