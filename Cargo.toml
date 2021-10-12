@@ -26,4 +26,4 @@ phf = { version = "0.8", features = ["macros"] }
 
 [build-dependencies]
 cc = "1.0"
-phf = { version = "0.8", features = ["macros"] }
+phf = { version = "0.10", features = ["macros"] }
